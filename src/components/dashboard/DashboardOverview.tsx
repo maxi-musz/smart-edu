@@ -1,11 +1,36 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboardStats, mockSchedule, mockGrades } from '@/data/mockData';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, Users, BarChart2, BookOpen, Clock, Bell, ClipboardCheck, FilePen, MessageSquare, LineChart } from 'lucide-react';
+import { 
+  Calendar, 
+  Users, 
+  BarChart2, 
+  BookOpen, 
+  Clock, 
+  Bell, 
+  ClipboardCheck, 
+  FilePen, 
+  MessageSquare, 
+  LineChart 
+} from 'lucide-react';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { 
+  AreaChart, 
+  Area, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  ResponsiveContainer, 
+  Legend 
+} from 'recharts';
+
+// Import the Tooltip component from recharts directly
+import { Tooltip } from 'recharts';
 
 const performanceData = [
   { month: 'Jan', attendance: 86, grades: 78 },
@@ -146,12 +171,21 @@ const DashboardOverview: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip content={(props) => {
-                    if (!props.active || !props.payload?.length) {
-                      return null;
-                    }
-                    return <ChartTooltipContent {...props} />;
-                  }} />
+                  {/* Fix the tooltip content prop type issue */}
+                  <Tooltip 
+                    content={({ active, payload, label }) => {
+                      if (!active || !payload?.length) {
+                        return null;
+                      }
+                      return (
+                        <ChartTooltipContent 
+                          active={active} 
+                          payload={payload} 
+                          label={label} 
+                        />
+                      );
+                    }}
+                  />
                   <Area
                     type="monotone"
                     dataKey="attendance"

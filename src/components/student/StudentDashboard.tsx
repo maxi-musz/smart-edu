@@ -1,12 +1,29 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChartContainer, ChartLegend, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartLegend, ChartTooltipContent } from '@/components/ui/chart';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { PieChart, Pie, Cell, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { 
+  PieChart, 
+  Pie, 
+  Cell, 
+  AreaChart, 
+  Area, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  ResponsiveContainer, 
+  Legend 
+} from 'recharts';
 import { CalendarDays, BookOpen, Clock, BarChart2, Award, FileText } from 'lucide-react';
+
+// Import the Tooltip component from recharts directly
+import { Tooltip } from 'recharts';
 
 const attendance = [
   { name: 'Present', value: 85 },
@@ -160,12 +177,21 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                     <XAxis dataKey="month" />
                     <YAxis domain={[0, 100]} />
-                    <Tooltip content={(props) => {
-                      if (!props.active || !props.payload?.length) {
-                        return null;
-                      }
-                      return <ChartTooltipContent {...props} />;
-                    }} />
+                    {/* Fix the tooltip content prop type issue */}
+                    <Tooltip 
+                      content={({ active, payload, label }) => {
+                        if (!active || !payload?.length) {
+                          return null;
+                        }
+                        return (
+                          <ChartTooltipContent 
+                            active={active} 
+                            payload={payload} 
+                            label={label} 
+                          />
+                        );
+                      }}
+                    />
                     <Area
                       type="monotone"
                       dataKey="performance"
@@ -214,12 +240,21 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
                     <XAxis dataKey="subject" scale="point" padding={{ left: 20, right: 20 }} />
                     <YAxis domain={[0, 100]} />
-                    <Tooltip content={(props) => {
-                      if (!props.active || !props.payload?.length) {
-                        return null;
-                      }
-                      return <ChartTooltipContent {...props} />;
-                    }} />
+                    {/* Fix the tooltip content prop type issue */}
+                    <Tooltip 
+                      content={({ active, payload, label }) => {
+                        if (!active || !payload?.length) {
+                          return null;
+                        }
+                        return (
+                          <ChartTooltipContent 
+                            active={active} 
+                            payload={payload} 
+                            label={label} 
+                          />
+                        );
+                      }}
+                    />
                     <Legend />
                     <Bar dataKey="average" fill="#E0E0E0" radius={[0, 0, 0, 0]} />
                     <Bar dataKey="score" fill="#1E88E5" radius={[4, 4, 0, 0]} />
