@@ -147,10 +147,12 @@ const DashboardOverview: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <ChartTooltip
-                    content={(props) => (
-                      <ChartTooltipContent {...props} />
-                    )}
+                  <Tooltip 
+                    content={(props) => {
+                      return props.active && props.payload ? (
+                        <ChartTooltipContent {...props} />
+                      ) : null;
+                    }}
                   />
                   <Area
                     type="monotone"

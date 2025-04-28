@@ -40,14 +40,28 @@ const classList = [
   'SS3B',
 ];
 
+// Extend the Student type to include the class property
+interface ExtendedStudent {
+  id: string;
+  name: string;
+  grade: string;
+  performance: number;
+  attendance: number;
+  avatar?: string;
+  class?: string;
+}
+
 const StudentsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [gradeFilter, setGradeFilter] = useState('');
   const [sortBy, setSortBy] = useState('name');
   const [classFilter, setClassFilter] = useState('All Classes');
 
+  // Convert mockStudents to use our extended type
+  const extendedStudents = mockStudents as ExtendedStudent[];
+
   // Filter and sort students
-  const filteredStudents = mockStudents
+  const filteredStudents = extendedStudents
     .filter(student => 
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
       (gradeFilter === '' || student.grade === gradeFilter) &&

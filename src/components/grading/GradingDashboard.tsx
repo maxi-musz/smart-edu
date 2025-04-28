@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { mockGrades, mockSubjects, mockStudents } from '@/data/mockData';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -47,6 +46,19 @@ const assignmentTypes = [
   { id: 'quiz', label: 'Quiz' },
 ];
 
+interface ExtendedGradeItem {
+  id: string;
+  studentName: string;
+  assignment: string;
+  subject: string;
+  score?: number;
+  outOf: number;
+  status: string;
+  date: string;
+  type?: string;
+  class?: string;
+}
+
 const GradingDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('');
@@ -54,8 +66,9 @@ const GradingDashboard = () => {
   const [classFilter, setClassFilter] = useState('All Classes');
   const [assignmentTypeFilter, setAssignmentTypeFilter] = useState<AssignmentType>('all');
 
-  // Filter grades
-  const filteredGrades = mockGrades
+  const extendedGrades = mockGrades as ExtendedGradeItem[];
+
+  const filteredGrades = extendedGrades
     .filter(grade => 
       (activeTab === 'all' || grade.status === activeTab) &&
       (assignmentTypeFilter === 'all' || grade.type === assignmentTypeFilter) &&
@@ -117,7 +130,6 @@ const GradingDashboard = () => {
         </div>
       </div>
       
-      {/* Filters Section */}
       <div className="mb-6 flex flex-wrap gap-4">
         <div className="relative grow">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -155,7 +167,6 @@ const GradingDashboard = () => {
         </Select>
       </div>
       
-      {/* Tabs for different grade statuses */}
       <Tabs defaultValue="all" onValueChange={(value) => setActiveTab(value as GradeStatus)}>
         <TabsList className="mb-6">
           <TabsTrigger value="all">All</TabsTrigger>
@@ -271,7 +282,6 @@ const GradesList: React.FC<GradesListProps> = ({ grades, getStatusIcon, getStatu
             </div>
           </div>
           
-          {/* Mobile action buttons */}
           <div className="flex justify-end mt-3 sm:hidden">
             <Button variant="outline" size="sm">
               View
@@ -282,7 +292,6 @@ const GradesList: React.FC<GradesListProps> = ({ grades, getStatusIcon, getStatu
             </Button>
           </div>
           
-          {/* Desktop action buttons */}
           <div className="hidden sm:flex justify-end mt-3">
             <Button variant="outline" size="sm">
               View Details

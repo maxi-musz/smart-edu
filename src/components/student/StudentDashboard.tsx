@@ -161,10 +161,12 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                     <XAxis dataKey="month" />
                     <YAxis domain={[0, 100]} />
-                    <ChartTooltip
-                      content={(props) => (
-                        <ChartTooltipContent {...props} />
-                      )}
+                    <Tooltip 
+                      content={(props) => {
+                        return props.active && props.payload ? (
+                          <ChartTooltipContent {...props} />
+                        ) : null;
+                      }}
                     />
                     <Area
                       type="monotone"
@@ -214,10 +216,12 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
                     <XAxis dataKey="subject" scale="point" padding={{ left: 20, right: 20 }} />
                     <YAxis domain={[0, 100]} />
-                    <ChartTooltip
-                      content={(props) => (
-                        <ChartTooltipContent {...props} />
-                      )}
+                    <Tooltip 
+                      content={(props) => {
+                        return props.active && props.payload ? (
+                          <ChartTooltipContent {...props} />
+                        ) : null;
+                      }}
                     />
                     <Legend />
                     <Bar dataKey="average" fill="#E0E0E0" radius={[0, 0, 0, 0]} />
