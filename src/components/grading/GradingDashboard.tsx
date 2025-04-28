@@ -14,6 +14,7 @@ import {
   Clock,
   AlertCircle,
   Plus,
+  ChevronDown,
 } from 'lucide-react';
 import {
   Select,
@@ -24,20 +25,45 @@ import {
 } from "@/components/ui/select";
 
 type GradeStatus = 'all' | 'graded' | 'pending' | 'draft';
+type AssignmentType = 'all' | 'exam' | 'lab-report' | 'essay' | 'book-report' | 'homework' | 'quiz';
+
+const classList = [
+  'All Classes',
+  'SS1A',
+  'SS1B',
+  'SS2A',
+  'SS2B',
+  'SS3A',
+  'SS3B',
+];
+
+const assignmentTypes = [
+  { id: 'all', label: 'All Types' },
+  { id: 'exam', label: 'Exam' },
+  { id: 'lab-report', label: 'Lab Report' },
+  { id: 'essay', label: 'Essay' },
+  { id: 'book-report', label: 'Book Report' },
+  { id: 'homework', label: 'Homework' },
+  { id: 'quiz', label: 'Quiz' },
+];
 
 const GradingDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [subjectFilter, setSubjectFilter] = useState('');
   const [activeTab, setActiveTab] = useState<GradeStatus>('all');
+  const [classFilter, setClassFilter] = useState('All Classes');
+  const [assignmentTypeFilter, setAssignmentTypeFilter] = useState<AssignmentType>('all');
 
   // Filter grades
   const filteredGrades = mockGrades
     .filter(grade => 
       (activeTab === 'all' || grade.status === activeTab) &&
+      (assignmentTypeFilter === 'all' || grade.type === assignmentTypeFilter) &&
       (searchTerm === '' || 
         grade.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         grade.assignment.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (subjectFilter === '' || grade.subject === subjectFilter)
+      (subjectFilter === '' || grade.subject === subjectFilter) &&
+      (classFilter === 'All Classes' || grade.class === classFilter)
     );
 
   const getStatusIcon = (status: string) => {
@@ -73,14 +99,26 @@ const GradingDashboard = () => {
           <h1 className="text-2xl font-bold text-gray-800">Grading</h1>
           <p className="text-gray-500 text-sm">Manage assignments and grades</p>
         </div>
-        <Button className="bg-edu-primary hover:bg-edu-primary/90">
-          <Plus className="h-4 w-4 mr-1" />
-          New Assignment
-        </Button>
+        <div className="flex gap-2">
+          <Select value={classFilter} onValueChange={setClassFilter}>
+            <SelectTrigger className="w-32 md:w-40 bg-white">
+              <SelectValue placeholder="Select Class" />
+            </SelectTrigger>
+            <SelectContent>
+              {classList.map(cls => (
+                <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button className="bg-edu-primary hover:bg-edu-primary/90">
+            <Plus className="h-4 w-4 mr-1" />
+            New Assignment
+          </Button>
+        </div>
       </div>
       
       {/* Filters Section */}
-      <div className="mb-6 flex flex-col md:flex-row gap-4">
+      <div className="mb-6 flex flex-wrap gap-4">
         <div className="relative grow">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <Input
@@ -90,20 +128,31 @@ const GradingDashboard = () => {
             className="pl-9"
           />
         </div>
-        <div>
-          <Select value={subjectFilter} onValueChange={setSubjectFilter}>
-            <SelectTrigger className="w-40">
-              <Filter className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Subject" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Subjects</SelectItem>
-              {mockSubjects.map(subject => (
-                <SelectItem key={subject.id} value={subject.name}>{subject.name}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        
+        <Select value={assignmentTypeFilter} onValueChange={(value) => setAssignmentTypeFilter(value as AssignmentType)}>
+          <SelectTrigger className="w-40 md:w-48">
+            <Filter className="h-4 w-4 mr-2" />
+            <SelectValue placeholder="Assignment Type" />
+          </SelectTrigger>
+          <SelectContent>
+            {assignmentTypes.map(type => (
+              <SelectItem key={type.id} value={type.id}>{type.label}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        
+        <Select value={subjectFilter} onValueChange={setSubjectFilter}>
+          <SelectTrigger className="w-40">
+            <Filter className="h-4 w-4 mr-2" />
+            <SelectValue placeholder="Subject" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="">All Subjects</SelectItem>
+            {mockSubjects.map(subject => (
+              <SelectItem key={subject.id} value={subject.name}>{subject.name}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       
       {/* Tabs for different grade statuses */}
@@ -168,7 +217,7 @@ const GradingDashboard = () => {
 };
 
 interface GradesListProps {
-  grades: typeof mockGrades;
+  grades: any[];
   getStatusIcon: (status: string) => JSX.Element | null;
   getStatusBadge: (status: string) => JSX.Element | null;
 }
@@ -190,13 +239,25 @@ const GradesList: React.FC<GradesListProps> = ({ grades, getStatusIcon, getStatu
         <div key={grade.id} className="p-4 hover:bg-gray-50 transition-colors">
           <div className="flex justify-between items-start">
             <div>
-              <h3 className="font-medium">{grade.assignment}</h3>
+              <div className="flex items-center">
+                <h3 className="font-medium">{grade.assignment}</h3>
+                {grade.type && (
+                  <Badge variant="outline" className="ml-2 bg-gray-100">
+                    {grade.type.replace('-', ' ').charAt(0).toUpperCase() + grade.type.replace('-', ' ').slice(1)}
+                  </Badge>
+                )}
+              </div>
               <p className="text-sm text-gray-600">{grade.subject}</p>
               <div className="flex items-center mt-1">
                 <div className="h-6 w-6 rounded-full bg-gray-200 mr-2 flex-shrink-0 flex items-center justify-center">
                   {grade.studentName.charAt(0)}
                 </div>
                 <p className="text-sm">{grade.studentName}</p>
+                {grade.class && (
+                  <Badge variant="outline" className="ml-2 bg-gray-100 text-xs">
+                    {grade.class}
+                  </Badge>
+                )}
               </div>
             </div>
             <div className="text-right">

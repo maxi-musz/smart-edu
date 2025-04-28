@@ -5,13 +5,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 
   Search, 
   Filter, 
   Plus, 
   ChevronRight, 
   ArrowUpDown, 
-  Users
+  Users,
+  ChevronDown
 } from 'lucide-react';
 import {
   Select,
@@ -21,17 +23,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Progress } from '@/components/ui/progress';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const classList = [
+  'All Classes',
+  'SS1A',
+  'SS1B',
+  'SS2A',
+  'SS2B',
+  'SS3A',
+  'SS3B',
+];
 
 const StudentsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [gradeFilter, setGradeFilter] = useState('');
   const [sortBy, setSortBy] = useState('name');
+  const [classFilter, setClassFilter] = useState('All Classes');
 
   // Filter and sort students
   const filteredStudents = mockStudents
     .filter(student => 
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
-      (gradeFilter === '' || student.grade === gradeFilter)
+      (gradeFilter === '' || student.grade === gradeFilter) &&
+      (classFilter === 'All Classes' || student.class === classFilter)
     )
     .sort((a, b) => {
       if (sortBy === 'name') {
@@ -53,6 +73,11 @@ const StudentsList = () => {
     return 'bg-edu-danger';
   };
 
+  const handleViewStudent = (studentId: string) => {
+    console.log(`Viewing student with ID: ${studentId}`);
+    // Implement view student functionality
+  };
+
   return (
     <div className="content-area">
       <div className="flex items-center justify-between mb-6">
@@ -60,10 +85,22 @@ const StudentsList = () => {
           <h1 className="text-2xl font-bold text-gray-800">Students</h1>
           <p className="text-gray-500 text-sm">Manage your student roster</p>
         </div>
-        <Button className="bg-edu-primary hover:bg-edu-primary/90">
-          <Plus className="h-4 w-4 mr-1" />
-          Add Student
-        </Button>
+        <div className="flex gap-2">
+          <Select value={classFilter} onValueChange={setClassFilter}>
+            <SelectTrigger className="w-32 md:w-40 bg-white">
+              <SelectValue placeholder="Select Class" />
+            </SelectTrigger>
+            <SelectContent>
+              {classList.map(cls => (
+                <SelectItem key={cls} value={cls}>{cls}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Button className="bg-edu-primary hover:bg-edu-primary/90">
+            <Plus className="h-4 w-4 mr-1" />
+            Add Student
+          </Button>
+        </div>
       </div>
 
       {/* Filters */}
@@ -84,7 +121,7 @@ const StudentsList = () => {
               <SelectValue placeholder="Grade" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Grades</SelectItem>
+              <SelectItem value="">All Grades</SelectItem>
               {grades.map(grade => (
                 <SelectItem key={grade} value={grade}>{grade}</SelectItem>
               ))}
@@ -112,25 +149,26 @@ const StudentsList = () => {
             <Card key={student.id} className="overflow-hidden card-hover">
               <CardContent className="p-4">
                 <div className="flex items-center">
-                  <div className="h-12 w-12 rounded-full bg-gray-200 flex-shrink-0 overflow-hidden">
+                  <Avatar className="h-16 w-16 rounded-full flex-shrink-0">
                     {student.avatar ? (
-                      <img 
-                        src={student.avatar} 
-                        alt={student.name} 
-                        className="h-full w-full object-cover"
-                      />
+                      <AvatarImage src={student.avatar} alt={student.name} className="h-full w-full object-cover" />
                     ) : (
-                      <div className="h-full w-full flex items-center justify-center bg-edu-primary text-white">
+                      <AvatarFallback className="bg-edu-primary text-white text-xl">
                         {student.name.charAt(0)}
-                      </div>
+                      </AvatarFallback>
                     )}
-                  </div>
+                  </Avatar>
                   <div className="ml-4 flex-grow">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-medium">{student.name}</h3>
-                      <Badge variant="outline">{student.grade}</Badge>
+                      <div>
+                        <h3 className="font-medium">{student.name}</h3>
+                        <div className="flex gap-2 mt-1">
+                          <Badge variant="outline">{student.grade}</Badge>
+                          <Badge variant="outline" className="bg-gray-100">{student.class || 'SS1A'}</Badge>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-2">
+                    <div className="mt-3">
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-xs text-gray-500">Performance</span>
                         <span className="text-xs font-medium">{student.performance}%</span>
@@ -159,9 +197,10 @@ const StudentsList = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="ml-2"
+                    className="ml-2 hover:bg-gray-100"
+                    onClick={() => handleViewStudent(student.id)}
                   >
-                    <ChevronRight className="h-5 w-5" />
+                    <ChevronRight className="h-6 w-6" />
                   </Button>
                 </div>
               </CardContent>
