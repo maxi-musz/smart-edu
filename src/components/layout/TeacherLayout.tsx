@@ -8,6 +8,12 @@ import ScheduleView from '../schedules/ScheduleView';
 import SubjectsList from '../subjects/SubjectsList';
 import GradingDashboard from '../grading/GradingDashboard';
 import TeacherProfile from '../profile/TeacherProfile';
+import StudentDashboard from '../student/StudentDashboard';
+import StudentSubjectsView from '../student/StudentSubjectsView';
+import StudentTasksView from '../student/StudentTasksView'; 
+import StudentPerformanceView from '../student/StudentPerformanceView';
+import StudentResultsView from '../student/StudentResultsView';
+import StudentAIChat from '../student/StudentAIChat';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '../ui/separator';
 
