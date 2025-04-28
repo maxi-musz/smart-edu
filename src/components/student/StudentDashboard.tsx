@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -161,13 +160,12 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                     <XAxis dataKey="month" />
                     <YAxis domain={[0, 100]} />
-                    <Tooltip 
-                      content={(props) => {
-                        return props.active && props.payload ? (
-                          <ChartTooltipContent {...props} />
-                        ) : null;
-                      }}
-                    />
+                    <Tooltip content={(props) => {
+                      if (!props.active || !props.payload?.length) {
+                        return null;
+                      }
+                      return <ChartTooltipContent {...props} />;
+                    }} />
                     <Area
                       type="monotone"
                       dataKey="performance"
@@ -216,13 +214,12 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
                     <XAxis dataKey="subject" scale="point" padding={{ left: 20, right: 20 }} />
                     <YAxis domain={[0, 100]} />
-                    <Tooltip 
-                      content={(props) => {
-                        return props.active && props.payload ? (
-                          <ChartTooltipContent {...props} />
-                        ) : null;
-                      }}
-                    />
+                    <Tooltip content={(props) => {
+                      if (!props.active || !props.payload?.length) {
+                        return null;
+                      }
+                      return <ChartTooltipContent {...props} />;
+                    }} />
                     <Legend />
                     <Bar dataKey="average" fill="#E0E0E0" radius={[0, 0, 0, 0]} />
                     <Bar dataKey="score" fill="#1E88E5" radius={[4, 4, 0, 0]} />

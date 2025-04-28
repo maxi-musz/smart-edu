@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboardStats, mockSchedule, mockGrades } from '@/data/mockData';
@@ -147,13 +146,12 @@ const DashboardOverview: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip 
-                    content={(props) => {
-                      return props.active && props.payload ? (
-                        <ChartTooltipContent {...props} />
-                      ) : null;
-                    }}
-                  />
+                  <Tooltip content={(props) => {
+                    if (!props.active || !props.payload?.length) {
+                      return null;
+                    }
+                    return <ChartTooltipContent {...props} />;
+                  }} />
                   <Area
                     type="monotone"
                     dataKey="attendance"
