@@ -53,7 +53,7 @@ interface ExtendedStudent {
 
 const StudentsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [gradeFilter, setGradeFilter] = useState('');
+  const [gradeFilter, setGradeFilter] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [classFilter, setClassFilter] = useState('All Classes');
 
@@ -64,7 +64,7 @@ const StudentsList = () => {
   const filteredStudents = extendedStudents
     .filter(student => 
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) && 
-      (gradeFilter === '' || student.grade === gradeFilter) &&
+      (gradeFilter === 'all' || student.grade === gradeFilter) &&
       (classFilter === 'All Classes' || student.class === classFilter)
     )
     .sort((a, b) => {
@@ -135,7 +135,7 @@ const StudentsList = () => {
               <SelectValue placeholder="Grade" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Grades</SelectItem>
+              <SelectItem value="all">All Grades</SelectItem>
               {grades.map(grade => (
                 <SelectItem key={grade} value={grade}>{grade}</SelectItem>
               ))}

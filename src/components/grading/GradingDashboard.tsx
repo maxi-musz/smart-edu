@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { mockGrades, mockSubjects, mockStudents } from '@/data/mockData';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -61,7 +62,7 @@ interface ExtendedGradeItem {
 
 const GradingDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [subjectFilter, setSubjectFilter] = useState('');
+  const [subjectFilter, setSubjectFilter] = useState('all');
   const [activeTab, setActiveTab] = useState<GradeStatus>('all');
   const [classFilter, setClassFilter] = useState('All Classes');
   const [assignmentTypeFilter, setAssignmentTypeFilter] = useState<AssignmentType>('all');
@@ -75,7 +76,7 @@ const GradingDashboard = () => {
       (searchTerm === '' || 
         grade.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         grade.assignment.toLowerCase().includes(searchTerm.toLowerCase())) &&
-      (subjectFilter === '' || grade.subject === subjectFilter) &&
+      (subjectFilter === 'all' || grade.subject === subjectFilter) &&
       (classFilter === 'All Classes' || grade.class === classFilter)
     );
 
@@ -159,7 +160,7 @@ const GradingDashboard = () => {
             <SelectValue placeholder="Subject" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Subjects</SelectItem>
+            <SelectItem value="all">All Subjects</SelectItem>
             {mockSubjects.map(subject => (
               <SelectItem key={subject.id} value={subject.name}>{subject.name}</SelectItem>
             ))}
