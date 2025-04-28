@@ -55,9 +55,11 @@ const TeacherLayout = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* Content Area */}
-      <main className="flex-grow overflow-y-auto pb-16 sm:pb-0 sm:mb-0">
-        {renderContent()}
+      {/* Content Area - Added pt-16 for mobile to account for bottom nav */}
+      <main className="flex-grow overflow-y-auto pb-16 sm:pb-0 sm:mb-0 sm:ml-64 pt-2 sm:pt-0">
+        <div className="content-area">
+          {renderContent()}
+        </div>
       </main>
 
       {/* Bottom Navigation for Mobile */}
@@ -115,9 +117,6 @@ const TeacherLayout = () => {
           </nav>
         </div>
       </div>
-      
-      {/* Main content padding for desktop layout */}
-      <div className="hidden sm:block sm:ml-64"></div>
     </div>
   );
 };
