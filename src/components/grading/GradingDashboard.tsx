@@ -97,7 +97,7 @@ const GradingDashboard = () => {
               <SelectValue placeholder="Subject" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Subjects</SelectItem>
+              <SelectItem value="all">All Subjects</SelectItem>
               {mockSubjects.map(subject => (
                 <SelectItem key={subject.id} value={subject.name}>{subject.name}</SelectItem>
               ))}

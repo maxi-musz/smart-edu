@@ -84,7 +84,7 @@ const StudentsList = () => {
               <SelectValue placeholder="Grade" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Grades</SelectItem>
+              <SelectItem value="all">All Grades</SelectItem>
               {grades.map(grade => (
                 <SelectItem key={grade} value={grade}>{grade}</SelectItem>
               ))}
