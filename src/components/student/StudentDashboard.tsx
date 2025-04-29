@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -42,7 +41,7 @@ const gradeData = [
 const upcomingAssignments = [
   { id: 1, title: 'Math Problem Set', subject: 'Mathematics', dueDate: '2025-05-02', status: 'pending' },
   { id: 2, title: 'Science Lab Report', subject: 'Biology', dueDate: '2025-05-05', status: 'pending' },
-  { id: 3, title: 'Essay on Shakespeare', subject: 'English Literature', dueDate: '2025-05-10', status: 'pending' },
+  { id: 3, title: 'Last days at Forcaddos High School', subject: 'English Literature', dueDate: '2025-05-10', status: 'pending' },
 ];
 
 const progressData = [
@@ -61,11 +60,11 @@ const StudentDashboard: React.FC = () => {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Student Dashboard</h1>
-          <p className="text-gray-500 text-sm">Welcome back, John</p>
+          <p className="text-gray-500 text-sm">Welcome back, <span className='text-green-500'>Maximus</span></p>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right hidden md:block">
-            <p className="text-sm font-medium">John Smith</p>
+            <p className="text-sm font-medium">Maximus Bernard</p>
             <p className="text-xs text-gray-500">Class: SS2A</p>
           </div>
           <Avatar className="h-10 w-10">
@@ -160,7 +159,7 @@ const StudentDashboard: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="h-64">
+            <div className="h-64 overflow-hidden">
               <ChartContainer
                 config={{
                   performance: {
@@ -177,7 +176,6 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                     <XAxis dataKey="month" />
                     <YAxis domain={[0, 100]} />
-                    {/* Fix the tooltip content prop type issue */}
                     <Tooltip 
                       content={({ active, payload, label }) => {
                         if (!active || !payload?.length) {
@@ -240,7 +238,6 @@ const StudentDashboard: React.FC = () => {
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} vertical={false} />
                     <XAxis dataKey="subject" scale="point" padding={{ left: 20, right: 20 }} />
                     <YAxis domain={[0, 100]} />
-                    {/* Fix the tooltip content prop type issue */}
                     <Tooltip 
                       content={({ active, payload, label }) => {
                         if (!active || !payload?.length) {

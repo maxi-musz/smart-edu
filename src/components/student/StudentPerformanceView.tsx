@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -53,34 +52,34 @@ const StudentPerformanceView = () => {
             <CardTitle>Subject Performance</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
-              {subjectPerformance.map((subject) => (
-                <div key={subject.subject}>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-medium">{subject.subject}</span>
-                    <span className="text-muted-foreground">
-                      Grade: {subject.grade}% | Attendance: {subject.attendance}%
-                    </span>
-                  </div>
-                  <div className="space-y-2">
-                    <div>
-                      <div className="flex justify-between mb-1 text-sm">
-                        <span className="text-muted-foreground">Grade</span>
-                        <span className="text-muted-foreground">{subject.grade}%</span>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b">
+                  <th className="py-2 px-4 font-medium">Subject</th>
+                  <th className="py-2 px-4 font-medium">Grade</th>
+                  <th className="py-2 px-4 font-medium">Attendance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {subjectPerformance.map((subject, index) => (
+                  <tr key={subject.subject} className={index % 2 === 0 ? "bg-gray-50" : ""}>
+                    <td className="py-2 px-4 font-medium">{subject.subject}</td>
+                    <td className="py-2 px-4">
+                      <div className="flex items-center">
+                        <span className="mr-2">{subject.grade}%</span>
+                        <Progress value={subject.grade} className="h-2 flex-1" />
                       </div>
-                      <Progress value={subject.grade} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between mb-1 text-sm">
-                        <span className="text-muted-foreground">Attendance</span>
-                        <span className="text-muted-foreground">{subject.attendance}%</span>
+                    </td>
+                    <td className="py-2 px-4">
+                      <div className="flex items-center">
+                        <span className="mr-2">{subject.attendance}%</span>
+                        <Progress value={subject.attendance} className="h-2 flex-1" />
                       </div>
-                      <Progress value={subject.attendance} className="h-2" />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </CardContent>
         </Card>
       </div>
