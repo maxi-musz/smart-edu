@@ -122,8 +122,8 @@ const TeacherLayout = () => {
       <div className="hidden sm:flex fixed left-0 top-0 h-full w-64 bg-white border-r shadow-sm">
         <div className="w-full">
           <div className="p-4 border-b">
-            <h1 className="font-bold text-lg text-edu-primary">EduTeach LMS</h1>
-            <p className="text-sm text-gray-500">Teacher Portal</p>
+            <h1 className="font-bold text-lg text-edu-primary">SmartEdu Hub</h1>
+            <p className="text-sm text-gray-500">Teacher's Portal</p>
           </div>
           <nav className="p-4">
             <div className="space-y-2">

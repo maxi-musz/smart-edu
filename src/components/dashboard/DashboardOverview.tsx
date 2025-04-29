@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboardStats, mockSchedule, mockGrades } from '@/data/mockData';
@@ -149,8 +148,8 @@ const DashboardOverview: React.FC = () => {
             Class Performance Overview
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="h-80">
+        <CardContent className="overflow-hidden">
+          <div className="h-80 relative">
             <ChartContainer
               config={{
                 attendance: {
@@ -171,7 +170,6 @@ const DashboardOverview: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  {/* Fix the tooltip content prop type issue */}
                   <Tooltip 
                     content={({ active, payload, label }) => {
                       if (!active || !payload?.length) {

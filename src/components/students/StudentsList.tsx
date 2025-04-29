@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { mockStudents } from '@/data/mockData';
 import { Users } from 'lucide-react';
@@ -57,25 +56,26 @@ const StudentsList = () => {
   };
 
   return (
-    <div className="content-area">
-      <StudentsHeader 
-        classFilter={classFilter}
-        setClassFilter={setClassFilter}
-        classList={classList}
-      />
-      
-      <StudentsFilters
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        gradeFilter={gradeFilter}
-        setGradeFilter={setGradeFilter}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        grades={grades}
-      />
+    <div className="content-area space-y-6">
+      <div className="sticky top-0 bg-white z-10 shadow-md p-4">
+        <StudentsHeader 
+          classFilter={classFilter}
+          setClassFilter={setClassFilter}
+          classList={classList}
+        />
+        <StudentsFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          gradeFilter={gradeFilter}
+          setGradeFilter={setGradeFilter}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          grades={grades}
+        />
+      </div>
 
       {filteredStudents.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredStudents.map((student) => (
             <StudentCard
               key={student.id}

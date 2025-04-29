@@ -1,11 +1,11 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, User, FileText, MessageCircle, Phone, CheckCircle, Edit3 } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 interface StudentCardProps {
   student: {
@@ -84,6 +84,65 @@ const StudentCard: React.FC<StudentCardProps> = ({ student, onView }) => {
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
+        </div>
+        <div className="mt-4 flex justify-end">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline">Manage</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                {/* <DialogTitle>Student Options</DialogTitle> */}
+              </DialogHeader>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium">Student Information</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-center space-x-2">
+                      <User className="w-5 h-5 text-blue-500" />
+                      <Button variant="ghost" onClick={() => onView(student.id)}>View Profile</Button>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <FileText className="w-5 h-5 text-green-500" />
+                      <Button variant="ghost">View Grades</Button>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <MessageCircle className="w-5 h-5 text-yellow-500" />
+                      <Button variant="ghost">View Behaviour</Button>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium">Communication</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-center space-x-2">
+                      <MessageCircle className="w-5 h-5 text-blue-500" />
+                      <Button variant="ghost">Send Message</Button>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <Phone className="w-5 h-5 text-green-500" />
+                      <Button variant="ghost">Contact Parent</Button>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium">Actions</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-center space-x-2">
+                      <CheckCircle className="w-5 h-5 text-yellow-500" />
+                      <Button variant="ghost">Mark Attendance</Button>
+                    </li>
+                    <li className="flex items-center space-x-2">
+                      <Edit3 className="w-5 h-5 text-blue-500" />
+                      <Button variant="ghost">Give Feedback</Button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
     </Card>
