@@ -56,7 +56,7 @@ const StudentResultsView = () => {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">73/100</div>
-            <p className="text-xs text-muted-foreground">Academic Year 2023-24</p>
+            <p className="text-xs text-muted-foreground">Academic Year 2025-24</p>
           </CardContent>
         </Card>
         

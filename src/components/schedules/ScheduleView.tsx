@@ -22,7 +22,7 @@ const ScheduleView = () => {
   const daySchedule = mockSchedule.filter(item => item.day === selectedDay);
   
   // Current "week" - in a real app, this would be dynamic
-  const currentWeek = 'Oct 23 - Oct 27, 2023';
+  const currentWeek = 'Oct 23 - Oct 27, 2025';
   
   const timeSlots = Array.from({ length: 8 }, (_, i) => {
     const hour = 8 + i;

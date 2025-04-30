@@ -208,7 +208,7 @@ export const mockGrades: GradeItem[] = [
     assignment: 'Mid-term Exam',
     score: 85,
     outOf: 100,
-    date: '2023-10-15',
+    date: '2025-10-15',
     status: 'graded'
   },
   {
@@ -219,7 +219,7 @@ export const mockGrades: GradeItem[] = [
     assignment: 'Mid-term Exam',
     score: 92,
     outOf: 100,
-    date: '2023-10-15',
+    date: '2025-10-15',
     status: 'graded'
   },
   {
@@ -230,7 +230,7 @@ export const mockGrades: GradeItem[] = [
     assignment: 'Lab Report',
     score: 78,
     outOf: 100,
-    date: '2023-10-18',
+    date: '2025-10-18',
     status: 'graded'
   },
   {
@@ -241,7 +241,7 @@ export const mockGrades: GradeItem[] = [
     assignment: 'Essay',
     score: 0,
     outOf: 100,
-    date: '2023-10-20',
+    date: '2025-10-20',
     status: 'pending'
   },
   {
@@ -252,7 +252,7 @@ export const mockGrades: GradeItem[] = [
     assignment: 'Book Report',
     score: 0,
     outOf: 100,
-    date: '2023-10-22',
+    date: '2025-10-22',
     status: 'draft'
   },
 ];
@@ -279,8 +279,8 @@ export const dashboardStats = {
   upcomingTests: 3,
   pendingGrades: 12,
   recentAnnouncements: [
-    { id: 'ann1', title: 'Parent-Teacher Meeting', date: 'Nov 15, 2023' },
-    { id: 'ann2', title: 'End of Term Exams', date: 'Dec 10, 2023' },
-    { id: 'ann3', title: 'School Closure - Staff Development', date: 'Nov 28, 2023' }
+    { id: 'ann1', title: 'Parent-Teacher Meeting', date: 'Nov 15, 2025' },
+    { id: 'ann2', title: 'End of Term Exams', date: 'Dec 10, 2025' },
+    { id: 'ann3', title: 'School Closure - Staff Development', date: 'Nov 28, 2025' }
   ]
 };
