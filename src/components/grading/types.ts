@@ -5,10 +5,10 @@ export type AssignmentType = 'all' | 'exam' | 'lab-report' | 'essay' | 'book-rep
 export interface Grade {
   id: string;
   assignment: string;
-  type?: string;
+  type: string;
   subject: string;
   studentName: string;
-  class?: string;
+  class: string;
   status: string;
   score?: number;
   outOf: number;
