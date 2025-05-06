@@ -37,7 +37,8 @@ const GradingDashboard = () => {
   const [classFilter, setClassFilter] = useState('All Classes');
   const [assignmentTypeFilter, setAssignmentTypeFilter] = useState<AssignmentType>('all');
 
-  const filteredGrades = mockGrades
+  // Cast mockGrades to Grade[] to ensure type compatibility
+  const filteredGrades = (mockGrades as unknown as Grade[])
     .filter(grade => 
       (activeTab === 'all' || grade.status === activeTab) &&
       (assignmentTypeFilter === 'all' || grade.type === assignmentTypeFilter) &&

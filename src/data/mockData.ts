@@ -1,4 +1,3 @@
-
 export interface Student {
   id: string;
   name: string;
@@ -40,6 +39,8 @@ export interface GradeItem {
   outOf: number;
   date: string;
   status: 'graded' | 'pending' | 'draft';
+  type: string;  // Added to match the Grade interface
+  class: string;  // Added to match the Grade interface
 }
 
 export interface TeacherProfile {
@@ -198,7 +199,7 @@ export const mockSchedule: ScheduleItem[] = [
   },
 ];
 
-// Mock Grade Items
+// Updated mockGrades to include the new required fields
 export const mockGrades: GradeItem[] = [
   {
     id: 'g001',
@@ -209,7 +210,9 @@ export const mockGrades: GradeItem[] = [
     score: 85,
     outOf: 100,
     date: '2025-10-15',
-    status: 'graded'
+    status: 'graded',
+    type: 'exam',
+    class: 'SS1A'
   },
   {
     id: 'g002',
@@ -220,7 +223,9 @@ export const mockGrades: GradeItem[] = [
     score: 92,
     outOf: 100,
     date: '2025-10-15',
-    status: 'graded'
+    status: 'graded',
+    type: 'exam',
+    class: 'SS1A'
   },
   {
     id: 'g003',
@@ -231,7 +236,9 @@ export const mockGrades: GradeItem[] = [
     score: 78,
     outOf: 100,
     date: '2025-10-18',
-    status: 'graded'
+    status: 'graded',
+    type: 'lab-report',
+    class: 'SS1B'
   },
   {
     id: 'g004',
@@ -242,7 +249,9 @@ export const mockGrades: GradeItem[] = [
     score: 0,
     outOf: 100,
     date: '2025-10-20',
-    status: 'pending'
+    status: 'pending',
+    type: 'essay',
+    class: 'SS1A'
   },
   {
     id: 'g005',
@@ -253,7 +262,9 @@ export const mockGrades: GradeItem[] = [
     score: 0,
     outOf: 100,
     date: '2025-10-22',
-    status: 'draft'
+    status: 'draft',
+    type: 'book-report',
+    class: 'SS1B'
   },
 ];
 
