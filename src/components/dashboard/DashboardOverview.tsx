@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { dashboardStats, mockSchedule, mockGrades } from '@/data/mockData';
@@ -25,11 +26,10 @@ import {
   YAxis, 
   CartesianGrid, 
   ResponsiveContainer, 
-  Legend 
+  Legend, 
+  Tooltip
 } from 'recharts';
-
-// Import the Tooltip component from recharts directly
-import { Tooltip } from 'recharts';
+import { Link } from 'react-router-dom';
 
 const performanceData = [
   { month: 'Jan', attendance: 86, grades: 78 },
@@ -83,24 +83,48 @@ const DashboardOverview: React.FC = () => {
       <div className="mb-8">
         <h2 className="text-lg font-medium mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Button variant="outline" className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 border-blue-200">
-            <ClipboardCheck className="h-8 w-8 text-edu-primary mb-2" />
-            <span>Mark Attendance</span>
+          <Button 
+            variant="outline" 
+            className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 border-blue-200"
+            asChild
+          >
+            <Link to="/teacher/attendance">
+              <ClipboardCheck className="h-8 w-8 text-edu-primary mb-2" />
+              <span>Mark Attendance</span>
+            </Link>
           </Button>
           
-          <Button variant="outline" className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 border-green-200">
-            <FilePen className="h-8 w-8 text-edu-success mb-2" />
-            <span>Create Assignment</span>
+          <Button 
+            variant="outline" 
+            className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 border-green-200"
+            asChild
+          >
+            <Link to="/teacher/assignment">
+              <FilePen className="h-8 w-8 text-edu-success mb-2" />
+              <span>Create Assignment</span>
+            </Link>
           </Button>
           
-          <Button variant="outline" className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 border-amber-200">
-            <MessageSquare className="h-8 w-8 text-edu-accent mb-2" />
-            <span>Message Class</span>
+          <Button 
+            variant="outline" 
+            className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 border-amber-200"
+            asChild
+          >
+            <Link to="/teacher/message">
+              <MessageSquare className="h-8 w-8 text-edu-accent mb-2" />
+              <span>Message Class</span>
+            </Link>
           </Button>
           
-          <Button variant="outline" className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 border-purple-200">
-            <BarChart2 className="h-8 w-8 text-purple-500 mb-2" />
-            <span>Enter Grades</span>
+          <Button 
+            variant="outline" 
+            className="h-auto py-6 flex flex-col items-center justify-center bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 border-purple-200"
+            asChild
+          >
+            <Link to="/teacher/grades">
+              <BarChart2 className="h-8 w-8 text-purple-500 mb-2" />
+              <span>Enter Grades</span>
+            </Link>
           </Button>
         </div>
       </div>
