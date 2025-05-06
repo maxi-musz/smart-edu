@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import TeacherLayout from '@/components/layout/TeacherLayout';
 import { mockStudents, mockSubjects } from '@/data/mockData';
 import { 
