@@ -3,20 +3,10 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { PenLine } from 'lucide-react';
+import { Grade } from './types';
 
 interface GradeItemProps {
-  grade: {
-    id: string;
-    assignment: string;
-    type?: string;
-    subject: string;
-    studentName: string;
-    class?: string;
-    status: string;
-    score?: number;
-    outOf: number;
-    date: string;
-  };
+  grade: Grade;
   getStatusBadge: (status: string) => JSX.Element | null;
 }
 

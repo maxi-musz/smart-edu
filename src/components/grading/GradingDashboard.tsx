@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { PenLine, Check, Clock, AlertCircle } from 'lucide-react';
-import { GradeStatus, AssignmentType } from './types';
+import { GradeStatus, AssignmentType, Grade } from './types';
 import GradingHeader from './GradingHeader';
 import GradingFilters from './GradingFilters';
 import GradeItem from './GradeItem';
@@ -137,7 +137,7 @@ const GradingDashboard = () => {
 };
 
 interface GradesListProps {
-  grades: any[];
+  grades: Grade[];
   getStatusBadge: (status: string) => JSX.Element | null;
 }
 
