@@ -22,9 +22,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import GradeEntryForm from '@/components/grades/GradeEntryForm';
-import GradeSummary from '@/components/grades/GradeSummary';
-import ImportGradesDialog from '@/components/grades/ImportGradesDialog';
+import GradeEntryForm from '@/components/teacher/grades/GradeEntryForm';
+import GradeSummary from '@/components/teacher/grades/GradeSummary';
+import ImportGradesDialog from '@/components/teacher/grades/ImportGradesDialog';
 
 const GradesEntryPage = () => {
   const [selectedSubject, setSelectedSubject] = useState(mockSubjects[0].id);

@@ -1,27 +1,27 @@
-
 import React, { useState } from 'react';
-import { Home, Users, Calendar, Book, FileText, User } from 'lucide-react';
+import { Home, Book, ListTodo, BarChart2, Award, MessageSquare } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import DashboardOverview from '../teacher/dashboard/DashboardOverview';
-import StudentsList from '../teacher/students/StudentsList';
-import ScheduleView from '../teacher/schedules/ScheduleView';
-import SubjectsList from '../teacher/subjects/SubjectsList';
-import GradingDashboard from '../teacher/grading/GradingDashboard';
-import TeacherProfile from '../teacher/profile/TeacherProfile';
+import StudentDashboard from '../student/StudentDashboard';
+import StudentSubjectsView from '../student/StudentSubjectsView';
+import StudentTasksView from '../student/StudentTasksView';
+import StudentPerformanceView from '../student/StudentPerformanceView';
+import StudentResultsView from '../student/StudentResultsView';
+import StudentAIChat from '../student/StudentAIChat';
 import { useToast } from '@/hooks/use-toast';
+import { Separator } from '../ui/separator';
 
-type TabType = 'home' | 'students' | 'schedules' | 'subjects' | 'grading' | 'profile';
+type TabType = 'home' | 'subjects' | 'tasks' | 'performance' | 'results' | 'chat';
 
-const teacherTabs = [
+const studentTabs = [
   { id: 'home' as const, label: 'Home', icon: Home },
-  { id: 'students' as const, label: 'Students', icon: Users },
-  { id: 'schedules' as const, label: 'Schedules', icon: Calendar },
   { id: 'subjects' as const, label: 'Subjects', icon: Book },
-  { id: 'grading' as const, label: 'Grading', icon: FileText },
-  { id: 'profile' as const, label: 'Profile', icon: User }
+  { id: 'tasks' as const, label: 'Tasks', icon: ListTodo },
+  { id: 'performance' as const, label: 'Performance', icon: BarChart2 },
+  { id: 'results' as const, label: 'Results', icon: Award },
+  { id: 'chat' as const, label: 'AI Chat', icon: MessageSquare }
 ];
 
-const TeacherLayout = () => {
+const StudentLayout = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const { toast } = useToast();
   
@@ -36,21 +36,20 @@ const TeacherLayout = () => {
   
   const renderContent = () => {
     switch (activeTab) {
-      // Teacher views
       case 'home':
-        return <DashboardOverview />;
-      case 'students':
-        return <StudentsList />;
-      case 'schedules':
-        return <ScheduleView />;
+        return <StudentDashboard />;
       case 'subjects':
-        return <SubjectsList />;
-      case 'grading':
-        return <GradingDashboard />;
-      case 'profile':
-        return <TeacherProfile />;
+        return <StudentSubjectsView />;
+      case 'tasks':
+        return <StudentTasksView />;
+      case 'performance':
+        return <StudentPerformanceView />;
+      case 'results':
+        return <StudentResultsView />;
+      case 'chat':
+        return <StudentAIChat />;
       default:
-        return <DashboardOverview />;
+        return <StudentDashboard />;
     }
   };
 
@@ -65,7 +64,7 @@ const TeacherLayout = () => {
       {/* Bottom Navigation for Mobile */}
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 sm:hidden z-10">
         <div className="grid grid-cols-6 h-16">
-          {teacherTabs.map(({ id, label, icon: Icon }) => (
+          {studentTabs.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               className={cn(
@@ -95,11 +94,11 @@ const TeacherLayout = () => {
             <a href="http://localhost:8080" className="block">
               <h1 className="font-bold text-lg text-edu-primary hover:text-edu-primary/90">SmartEdu Hub</h1>
             </a>
-            <p className="text-sm text-gray-500">Teacher's Portal</p>
+            <p className="text-sm text-gray-500">Student's Portal</p>
           </div>
           <nav className="p-4">
             <div className="space-y-2">
-              {teacherTabs.map(({ id, label, icon: Icon }) => (
+              {studentTabs.map(({ id, label, icon: Icon }) => (
                 <button
                   key={id}
                   className={cn(
@@ -122,4 +121,4 @@ const TeacherLayout = () => {
   );
 };
 
-export default TeacherLayout;
+export default StudentLayout;

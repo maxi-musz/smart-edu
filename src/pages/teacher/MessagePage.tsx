@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import TeacherLayout from '@/components/layout/TeacherLayout';
 import { mockStudents } from '@/data/mockData';
 import { useToast } from '@/hooks/use-toast';
-import MessageComposer from '@/components/messages/MessageComposer';
-import RecipientSelector from '@/components/messages/RecipientSelector';
-import MessageTemplates from '@/components/messages/MessageTemplates';
+import MessageComposer from '@/components/teacher/messages/MessageComposer';
+import RecipientSelector from '@/components/teacher/messages/RecipientSelector';
+import MessageTemplates from '@/components/teacher/messages/MessageTemplates';
 
 const MessagePage = () => {
   const [selectedClass, setSelectedClass] = useState('10A');
