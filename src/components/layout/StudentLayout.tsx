@@ -91,7 +91,7 @@ const StudentLayout = () => {
       <div className="hidden sm:flex fixed left-0 top-0 h-full w-64 bg-white border-r shadow-sm">
         <div className="w-full">
           <div className="p-4 border-b">
-            <a href="http://localhost:8080" className="block">
+            <a href="/" className="block">
               <h1 className="font-bold text-lg text-edu-primary hover:text-edu-primary/90">SmartEdu Hub</h1>
             </a>
             <p className="text-sm text-gray-500">Student's Portal</p>

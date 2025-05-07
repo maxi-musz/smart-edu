@@ -95,7 +95,7 @@ const TeacherLayout = () => {
       <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-white">
         <div className="flex h-full flex-col">
           <div className="p-4 border-b">
-            <a href="http://localhost:8080" className="block">
+            <a href="/" className="block">
               <h1 className="font-bold text-lg text-edu-primary hover:text-edu-primary/90">SmartEdu Hub</h1>
             </a>
             <p className="text-sm text-gray-500">Teacher's Portal</p>
