@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Wallet, 
   TrendingUp, 
@@ -12,6 +12,30 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+
+const classFilters = [
+  { label: 'All', value: 'all' },
+  { label: 'JSS1', value: 'JSS1' },
+  { label: 'JSS2', value: 'JSS2' },
+  { label: 'JSS3', value: 'JSS3' },
+  { label: 'SS1', value: 'SS1' },
+  { label: 'SS2', value: 'SS2' },
+  { label: 'SS3', value: 'SS3' },
+];
+
+const ongoingClassesDemo = [
+  { class: 'JSS1A', subject: 'Mathematics', teacher: 'Mr. Ade', from: '08:00', to: '09:00' },
+  { class: 'JSS1B', subject: 'English', teacher: 'Mrs. Bello', from: '08:00', to: '09:00' },
+  { class: 'JSS2A', subject: 'Basic Science', teacher: 'Mr. Chinedu', from: '09:00', to: '10:00' },
+  { class: 'JSS2B', subject: 'Social Studies', teacher: 'Ms. Grace', from: '09:00', to: '10:00' },
+  { class: 'SS1A', subject: 'Biology', teacher: 'Dr. Musa', from: '10:00', to: '11:00' },
+  { class: 'SS2C', subject: 'Chemistry', teacher: 'Mrs. Okafor', from: '11:00', to: '12:00' },
+  { class: 'SS3B', subject: 'Physics', teacher: 'Mr. Johnson', from: '12:00', to: '01:00' },
+  { class: 'JSS3A', subject: 'Computer Science', teacher: 'Mr. David', from: '13:00', to: '14:00' },
+  { class: 'SS1B', subject: 'Economics', teacher: 'Mrs. Sarah', from: '14:00', to: '15:00' },
+];
+
+const totalClasses = 16; // Total number of classes in the school
 
 const AdminDashboard = () => {
   // Demo data
@@ -46,6 +70,12 @@ const AdminDashboard = () => {
   ];
 
   const COLORS = ['#3b82f6', '#6366f1', '#8b5cf6', '#a855f7', '#d946ef'];
+
+  const [classFilter, setClassFilter] = useState('all');
+  const filteredOngoingClasses =
+    classFilter === 'all'
+      ? ongoingClassesDemo
+      : ongoingClassesDemo.filter((c) => c.class.toUpperCase().startsWith(classFilter));
 
   return (
     <div className="p-6 space-y-6">
@@ -141,66 +171,85 @@ const AdminDashboard = () => {
         </Card>
       </div>
 
-      {/* Subject Distribution */}
+      {/* Ongoing Classes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Ongoing Classes List */}
         <Card className="shadow-sm hover:shadow-md transition-shadow">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Subject Distribution</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-semibold">Ongoing Classes</h3>
+                <span className="text-sm text-gray-500">
+                  {filteredOngoingClasses.length}/{totalClasses} total classes
+                </span>
+              </div>
               <BookOpen className="h-5 w-5 text-indigo-500" />
             </div>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={subjectDistribution}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label={({name, percent}) => `${name} ${(percent * 100).toFixed(0)}%`}
-                  >
-                    {subjectDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
+            {/* Filter Tabs */}
+            <div className="flex gap-2 mb-4">
+              {classFilters.map((filter) => (
+                <button
+                  key={filter.value}
+                  className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${classFilter === filter.value ? 'bg-edu-primary text-white border-edu-primary' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}`}
+                  onClick={() => setClassFilter(filter.value)}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+            <div className="h-64 overflow-y-scroll pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#D1D5DB #F3F4F6' }}>
+              {filteredOngoingClasses.map((ongoing, idx) => (
+                <div key={idx} className="flex items-center justify-between bg-gray-50 rounded-lg p-3 mb-2">
+                  <div>
+                    <div className="font-semibold text-edu-primary">{ongoing.class}</div>
+                    <div className="text-sm text-gray-700">{ongoing.subject}</div>
+                  </div>
+                  <div className="flex-1 px-4">
+                    <div className="text-sm text-gray-500">{ongoing.teacher}</div>
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    {ongoing.from} - {ongoing.to}
+                  </div>
+                </div>
+              ))}
+              {filteredOngoingClasses.length === 0 && (
+                <div className="text-center text-gray-400 text-sm mt-8">No ongoing classes found for this filter.</div>
+              )}
             </div>
           </CardContent>
         </Card>
 
-        {/* Upcoming Events */}
+        {/* Upcoming Events - now scrollable */}
         <Card className="shadow-sm hover:shadow-md transition-shadow">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Upcoming Events</h3>
               <Calendar className="h-5 w-5 text-rose-500" />
             </div>
-            <div className="space-y-4">
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-semibold">End of Term Exams</span>
-                  <span className="text-sm text-gray-500">Dec 15</span>
+            <div className="h-64 overflow-y-scroll pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#D1D5DB #F3F4F6' }}>
+              <div className="space-y-4">
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold">End of Term Exams</span>
+                    <span className="text-sm text-gray-500">Dec 15</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Final examinations for all classes</p>
                 </div>
-                <p className="text-sm text-gray-600">Final examinations for all classes</p>
-              </div>
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-semibold">Parents Meeting</span>
-                  <span className="text-sm text-gray-500">Dec 20</span>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold">Parents Meeting</span>
+                    <span className="text-sm text-gray-500">Dec 20</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Annual parents-teachers meeting</p>
                 </div>
-                <p className="text-sm text-gray-600">Annual parents-teachers meeting</p>
-              </div>
-              <div className="p-3 bg-gray-50 rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-semibold">Sports Day</span>
-                  <span className="text-sm text-gray-500">Dec 22</span>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="font-semibold">Sports Day</span>
+                    <span className="text-sm text-gray-500">Dec 22</span>
+                  </div>
+                  <p className="text-sm text-gray-600">Annual sports competition</p>
                 </div>
-                <p className="text-sm text-gray-600">Annual sports competition</p>
+                {/* Add more events as needed */}
               </div>
             </div>
             <Button variant="link" className="mt-4 w-full justify-between" onClick={() => window.location.href = '/calendar'}>
